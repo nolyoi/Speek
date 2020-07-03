@@ -1,0 +1,32 @@
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_with model: @user, url: login_path do |f| %>
+        <div class="modal-body mx-3">
+          <div class="md-form mb-5">
+            <i class="fas fa-at prefix grey-text"></i>
+            <%= f.text_field :username, class: "form-control validate", placeholder: "Username" %>
+            <%= label_tag :username, "Password", data_error: "wrong", data_success: "right", class: "sr-only" %>
+          </div>
+
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+            <%= f.password_field :password, class: "form-control validate", placeholder: "Password" %>
+            <%= label_tag :password, "Password", data_error: "wrong", data_success: "right", class: "sr-only" %>
+          </div>
+
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <%= f.submit "Sign-in", :class => "btn btn-purple" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

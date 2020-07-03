@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Speek</title>
+    <%= csrf_meta_tags %> 
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'application', media: "all", 'data-turbolinks-track' => true %>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+  </head>
+  <body style="background: #f5f5f5;">
+    <!--Navbar -->
+    <nav class="mb-0 navbar navbar-expand-lg navbar-dark blue-gradient">
+      <div class="container">
+        <% if current_user %>
+          <a class="navbar-brand" href="/users/dashboard">Speek</a>
+        <% else %>
+          <a class="navbar-brand" href="/">Speek</a>
+        <% end %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+          aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+          <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item">
+              <form class="form-inline">
+                <div class="md-form my-0">
+                  <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="search_name">
+                </div>
+              </form>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto nav-flex-icons">
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light">
+                <i class="fas fa-home"></i> Communities
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#modalPostForm">
+                <i class="fas fa-plus"></i>New Post
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light">1
+                <i class="fas fa-envelope"></i>
+              </a>
+            </li>
+            <% if current_user %>
+              <% if current_user.avatar.presence %>
+              <li class="nav-item avatar dropdown">
+                <a class="nav-link" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                   <%= image_tag current_user.avatar.variant(resize_to_limit: [25, 25]), class: "rounded-circle z-depth-0" %>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                aria-labelledby="navbarDropdownMenuLink-333">
+                <%= link_to "Your Profile", user_path(current_user), class: "dropdown-item" %> 
+                <%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %> 
+                <%= link_to "Logout", logout_path, method: "delete", class: "dropdown-item" %> 
+              </div>
+            </li>
+                <% else %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user"></i>
+                @<%= current_user.username %>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                aria-labelledby="navbarDropdownMenuLink-333">
+                <%= link_to "Your Profile", user_path(current_user), class: "dropdown-item" %> 
+                <%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %> 
+                <%= link_to "Logout", logout_path, method: "delete", class: "dropdown-item" %> 
+              </div>
+            </li>
+              <% end %>
+            <% else %>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#modalLoginForm">
+                <i class="fas fa-user"></i>Login
+              </a>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!--/.Navbar -->
+
+<%= render "sessions/login_modal" %>
+<% if current_user%>
+  <%= render "posts/new_post_modal" %>
+<% end %>
+
+    <% flash.each do |name, msg| %>
+    <div class="container pt-2" style="background: #fff">
+      <%= content_tag :div, class: "note note-#{name} fade show" do %>
+        <%= msg %>
+      <% end %>
+    </div> 
+    <% end %> 
+
+  <%= yield %>
+<div class="container d-block d-lg-none" style="position relative">
+  <a class="btn-floating btn-lg btn-deep-purple btn-circle d-block d-lg-none" style="position: fixed; bottom: 20px; right: 20px;" data-toggle="modal" data-target="#modalPostForm"><i class="fas fa-plus white-text"></i></a>
+</div>
+
+
+
+<script type="text/javascript">
+$('#modalPostForm').on('show.bs.modal', function(e) {
+    var postId = $(e.relatedTarget).data('id');
+    $(e.currentTarget).find('input[name="post[parent_id]"]').val(postId);
+});
+</script>
+  </body>
+</html>

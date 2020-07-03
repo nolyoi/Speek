@@ -1,0 +1,70 @@
+  
+<div class="col-xl-4">
+  <!-- Card -->
+  <div class="card card-cascade wider reverse">
+    <!-- Card image -->
+    <div class="view view-cascade overlay">
+      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg"
+          alt="Card image cap">
+      <a href="#!">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+    <!-- Card content -->
+    <div class="card-body card-body-cascade text-center">
+      <!-- Title -->
+      <h4 class="card-title"><strong>@<%= user.username %></strong></h4>
+      <!-- Subtitle -->
+      
+      <h6 class="font-weight-bold indigo-text pb-1 pt-0 mt-0">About</h6>
+      <!-- Text -->
+      <p class="card-text">
+        <%= user.bio %>
+      </p>
+      <% if is_following?(current_user) %>
+      <% else %>
+        <p>
+          <button type="button" class="btn btn-primary btn-rounded btn-sm btn-block">Follow</button>
+        </p>
+      <% end %>
+      <!-- Linkedin -->
+      <a class="px-2 fa-lg li-ic"><i class="fab fa-linkedin-in"></i></a>
+      <!-- Twitter -->
+      <a class="px-2 fa-lg tw-ic"><i class="fab fa-twitter"></i></a>
+      <!-- Dribbble -->
+      <a class="px-2 fa-lg fb-ic"><i class="fab fa-facebook-f"></i></a>
+    </div>
+  </div>
+  <!-- Card -->
+  <!-- Card -->
+  <div class="card card-cascade wider mt-3">
+    <!-- Card image -->
+    <div class="view view-cascade gradient-card-header peach-gradient">
+      <!-- Title -->
+      <h2 class="card-header-title my-4 white-text mx-auto text-center"><strong><%= number_to_human(user.followers.count) %></strong> <small class="mb-0">Followers</small></h2>
+      <!-- Text -->
+    </div>
+  </div>
+  <!-- Card -->
+  <!-- Card -->
+  <div class="card card-cascade wider mt-3">
+    <!-- Card image -->
+    <div class="view view-cascade gradient-card-header aqua-gradient">
+      <!-- Title -->
+      <h2 class="card-header-title my-4 white-text mx-auto text-center"><strong><%= number_to_human(user.following.count) %></strong> <small class="mb-0">Following</small></h2>
+      <!-- Text -->
+    </div>
+  </div>
+  <!-- Card -->
+  <!-- Card -->
+  <!-- Card -->
+  <div class="card card-cascade wider mt-3">
+    <!-- Card image -->
+    <div class="view view-cascade gradient-card-header purple-gradient">
+      <!-- Title -->
+      <h2 class="card-header-title my-4 white-text mx-auto text-center"><strong><%= number_to_human(user.community_memberships.count) %></strong> <small class="mb-0"> Memberships</small></h2>
+      <!-- Text -->
+    </div>
+  </div>
+  <!-- Card -->
+</div>

@@ -1,0 +1,68 @@
+<div class="container container-body py-5 px-4">
+  <div class="card-group">
+    <%= render partial: "communities/sidebar", locals: {community: @community} %>
+    <div class="col-xl-8">
+      <section class="my-4">
+        <!-- Card header -->
+        <div class="card-header border-0 font-weight-bold d-flex justify-content-between">
+          <p class="mr-4 mb-0">Activity Feed | <a href="#">Blogs</a> | <a href="#">Replies</a></p>
+          <ul class="list-unstyled list-inline mb-0">
+            <li class="list-inline-item"><a href="" class="mr-3"><i class="fas fa-envelope mr-1"></i>Send message</a></li>
+            <li class="list-inline-item"><a href="" class="mr-3"><i class="fas fa-at mr-1"></i>Follow</a></li>
+          </ul>
+        </div>
+        <% @community.posts.order(created_at: :desc).each do |post| %>
+          <div class="media mt-4 mb-3 px-1 text-md-left border-1">
+            <% if post.user.avatar.presence %>
+              <%= image_tag post.user.avatar.variant(resize_to_limit: [80, 80]), class: "card-img-80 d-flex rounded-circle z-depth-1 mr-3" %>
+            <% else %>
+              <img class="card-img-100 d-flex z-depth-1 mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
+            <% end %>
+            <div class="media-body ml-2 mt-1">
+              <h5 class="font-weight-bold mt-0 mb-0">
+                <a href=""><%= post.user.username %></a>
+              </h5>
+              <p class="mt-2"><%= truncate(sanitize(post.body, tags: []), length: 500) %>
+                <%= link_to "View full post", community_post_path(post.community, post) %>
+              </p>
+              <div class="row" style="background: #f9f9f9; padding-top: 5px; padding-bottom: 5px; margin-left: 1px; margin-right: 1px;">
+                <small class="blue-grey-text pl-3">
+                  Posted <%= post.created_at.strftime("%B %e at %H:%M") %>
+                  <% if post.community %>
+                    in <%= link_to post.community.name, community_path(post.community) %><a class="pl-3"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Quote/Repost</a>
+                  <% else %>
+                    in Global <a class="pl-3"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Quote/Repost</a>
+                  <% end %>
+                </small>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </section>
+    </div>
+  </div>
+</div>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @community.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @community.description %>
+</p>
+
+<p>
+  <strong>Posts:</strong><br>
+  <% @community.posts.each do |post| %>
+  <strong>User: </strong> <%= post.user.username %>
+  <strong>Body: </strong> <%= post.body %><br>
+  <%= link_to "Delete", community_post_path(post) %><br>
+  <% end %>
+</p>
+
+
+</div>

@@ -1,0 +1,30 @@
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true" id="modalPostForm">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Reply to Post</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_with model: Post.new do |f| %>
+        <%= f.hidden_field :parent_id %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <div class="modal-body mx-3">
+            <%= f.collection_select(:community_id, current_user.communities, :id, :name, {:prompt => 'Post Globally (or Select Community)'}, class: "browser-default custom-select custom-select-lg mb-3 z-depth-1") %>
+          <div class="form-group shadow-textarea">
+            <h5>Body</h5>
+            <%= f.text_area :body, class: "form-control z-depth-1", id: "exampleFormControlTextarea345", rows: "10", style: "padding-left: 1rem; padding-top: 1rem;" %>
+            <%= label_tag :body, "Content", class: "sr-only" %>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <%= f.submit "Submit", :class => "btn btn-green" %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+toolbar: true
+  - format bold italic quote | undo redo
+  - image | link 
+  - code
+  - quote
+block_formats: 'Paragraph=p; Header 2=h2; Header 3=h3'
+plugins:
+  - image
+  - link
+  - paste
+  - bbcode
+  - code
+  - bbcode
+bbcode_dialect: 'punbb'
+menubar: false
+paste_as_text: true

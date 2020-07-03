@@ -1,0 +1,49 @@
+<div class="col-xl-4">
+  <div class="card card-cascade wider reverse">
+    <!-- Card image -->
+    <div class="view view-cascade overlay">
+      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg"
+          alt="Card image cap">
+      <a href="#!">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+    <!-- Card content -->
+    <div class="card-body card-body-cascade text-center">
+      <!-- Title -->
+      <h4 class="card-title"><strong><%= community.name %></strong></h4>
+      <!-- Subtitle -->
+      <h6 class="font-weight-bold indigo-text pb-1 pt-0 mt-0">About</h6>
+      <!-- Text -->
+      <p class="card-text"><%= community.description %></p>
+
+      <p>
+        <strong>Admins</strong><br>
+          <% get_admins(community).each do |admin| %>
+            <%= link_to admin.username, user_path(admin) %>
+          <% end %>
+
+          <br>
+      
+        <% if is_community_admin?(current_user, community) %>
+          <%= link_to 'Edit', edit_community_path(@community) %> |
+          <%= link_to 'Back', communities_path %>
+        <% end %>
+      </p>
+      <!-- Linkedin -->
+      <a class="px-2 fa-lg li-ic"><i class="fab fa-linkedin-in"></i></a>
+      <!-- Twitter -->
+      <a class="px-2 fa-lg tw-ic"><i class="fab fa-twitter"></i></a>
+      <!-- Dribbble -->
+      <a class="px-2 fa-lg fb-ic"><i class="fab fa-facebook-f"></i></a>
+    </div>
+  </div>
+  <div class="card card-cascade wider mt-3">
+    <!-- Card image -->
+    <div class="view view-cascade gradient-card-header peach-gradient">
+      <!-- Title -->
+      <h2 class="card-header-title my-4 white-text mx-auto text-center"><strong><%= community.users.length %></strong> <small class="mb-0">Members</small></h2>
+      <!-- Text -->
+    </div>
+  </div>
+</div>

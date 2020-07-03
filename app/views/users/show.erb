@@ -1,0 +1,55 @@
+<div class="container container-body py-5 px-4">
+  <div class="card-group">
+    <%= render partial: "users/user_card", locals: {user: @user} %>
+    <div class="col-xl-8">
+      <section class="my-4">
+        <!-- Card header -->
+        <div class="card-header border-0 font-weight-bold d-flex justify-content-between">
+          <p class="mr-4 mb-0">Activity Feed | <a href="#">Blogs</a> | <a href="#">Replies</a></p>
+          <ul class="list-unstyled list-inline mb-0">
+            <li class="list-inline-item"><a href="" class="mr-3"><i class="fas fa-envelope mr-1"></i>Send message</a></li>
+            <li class="list-inline-item"><a href="" class="mr-3"><i class="fas fa-at mr-1"></i>Follow</a></li>
+          </ul>
+        </div>
+        <% @user.posts.order(created_at: :desc).each do |post| %>
+          <div class="media mt-4 mb-3 px-1 text-md-left border-1">
+            <% if @user.avatar.presence %>
+              <%= image_tag @user.avatar.variant(resize_to_limit: [80, 80]), class: "card-img-80 d-flex rounded-circle z-depth-1 mr-3" %>
+            <% else %>
+              <img class="card-img-100 d-flex z-depth-1 mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
+            <% end %>
+            <div class="media-body ml-2 mt-1">
+              <h5 class="font-weight-bold mt-0 mb-0">
+                <a href="">@<%= @user.username %></a>
+              </h5>
+              <% if post.body.length > 600 %>
+                <p class="mt-2"><%= sanitize(post.parsed_body.truncate(600), tags: %w(p)) %>
+                  <%= link_to "View full post", user_post_path(@user, post) %>
+                </p>
+              <% else %>
+                <p class="mt-2"><%= raw(post.parsed_body) %>
+                </p>
+              <% end %>
+              <div class="row" style="background: #f9f9f9; padding-top: 5px; padding-bottom: 5px; margin-left: 1px; margin-right: 1px;">
+                <small class="blue-grey-text pl-3">
+                  Posted <%= post.created_at.strftime("%B %e at %H:%M") %>
+                  <% if post.parent_id %>
+                    as reply to <%= link_to post.parent.user.username, user_post_path(post.parent.user, post.parent) %><a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Quote/Repost</a>
+                    <%= link_to "View post", user_post_path(post.user, post), class: "pl-3" %>
+                  <% elsif post.community %>
+                    in <%= link_to post.community.name, community_path(post.community) %><a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Quote/Repost</a>
+                    <%= link_to "View post", community_post_path(post.community, post), class: "pl-3" %>
+                  <% else %>
+                    in Global <a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Quote/Repost</a>
+                    <%= link_to "View post", user_post_path(post.user, post), class: "pl-3" %>
+                  <% end %>
+                </small>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </section>
+    </div>
+  </div>
+</div>
+

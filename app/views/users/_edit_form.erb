@@ -1,0 +1,74 @@
+<div class="row">
+  <h2>Edit Profile</h2>
+</div>
+<%= form_with model: @user, local: true do |f| %>
+<%= f.hidden_field :owner_id, value: current_user.id %>
+  <div class="form-row mt-4">
+    <div class="form-group col-xl-3 mx-auto text-center">
+      <% if @user.avatar.presence %>
+        <%= image_tag @user.avatar.variant(resize_to_limit: [200, 200]), class: "mb-3 mx-auto" %>
+      <% end %>
+      <div class="row mx-auto">
+        <%= label_tag :avatar, "Avatar", class: "mt-4 mx-auto" %>
+        <%= f.file_field :avatar, class: "form-control-file mx-auto mb-4" %>
+      </div>
+    </div>
+  
+      
+  <div class="col-xl-9">
+    <div class="form-row">
+      <div class="form-group col-xl-6">
+        <%= label_tag :name, "Name" %> 
+        <%= f.text_field :name, class: "form-control form-control-lg" %>
+      </div>
+
+      <div class="form-group col-xl-6">
+        <%= label_tag :username, "Username" %> 
+        <%= f.text_field :username, class: "form-control form-control-lg" %>
+      </div>
+
+      <div class="form-group col-xl-6">
+        <%= label_tag :password, "Password" %> 
+        <%= f.password_field :password, class: "form-control form-control-lg" %>
+      </div>
+
+      <div class="form-group col-xl-6">
+        <%= label_tag :password_confirmation, "Confirm Password" %> 
+        <%= f.password_field :password_confirmation, class: "form-control form-control-lg" %>
+      </div>
+          
+      <div class="form-group col-xl-6">
+        <%= label_tag :email, "E-mail Address" %> 
+        <%= f.text_field :email, class: "form-control form-control-lg" %>
+      </div>
+
+      <div class="form-group col-xl-6">
+        <%= label_tag :facebook, "Facebook URL" %> 
+        <%= f.text_field :facebook_url, class: "form-control form-control-lg" %>
+      </div>
+      
+      <div class="form-group col-xl-6">
+        <%= label_tag :twitter_url, "Twitter URL" %>
+        <%= f.text_field :twitter_url, class: "form-control form-control-lg" %>
+      </div>  
+
+      <div class="form-group col-xl-6">
+        <%= label_tag :website_url, "Website Address" %> 
+        <%= f.text_field :website_url, class: "form-control form-control-lg" %>
+      </div> 
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-xl-12">
+        <%= label_tag :bio, "Bio" %>
+        <%= f.text_area :bio, class: "form-control form-control-lg", rows: "6"%>
+      </div>  
+    </div>
+
+    <div class="form-row float-right">
+      <%= f.submit "Submit", :class => "btn btn-primary" %>
+      <%= f.submit "Delete Account", :class => "btn btn-danger mx-2", data: { confirm: 'Are you sure? This will delete your account and ALL associated data!' } %>
+    </div>  
+
+    </div>
+<% end %>
