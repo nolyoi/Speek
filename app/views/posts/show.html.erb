@@ -17,7 +17,25 @@
           </p>
           <ul class="list-unstyled list-inline mb-0">
             <li class="list-inline-item"><a href="" class="mr-3"><i class="fas fa-envelope mr-1"></i>Send message</a></li>
-            <li class="list-inline-item"><a href="" class="mr-3"><i class="fas fa-at mr-1"></i>Follow</a></li>
+            <% if is_following?(@post.user) %>
+              <li class="list-inline-item">
+                <%= link_to user_follow_path(@post.user), method: "post" do %>
+                  <i class="fas fa-at mr-1"></i>Unfollow
+                <% end %>
+              </li>
+            <% elsif current_user.id == @post.user.id %>
+              <li class="list-inline-item">
+                <%= link_to user_follow_path(@post.user), method: "post" do %>
+                  <i class="fas fa-at mr-1"></i>You
+                <% end %>
+              </li>
+            <% else %>
+              <li class="list-inline-item">
+                <%= link_to user_follow_path(@post.user), method: "post" do %>
+                  <i class="fas fa-at mr-1"></i>Follow
+                <% end %>
+              </li>
+            <% end %>
           </ul>
         </div>
         <div class="media mt-4 px-1 text-md-left border-1">
@@ -31,24 +49,40 @@
               <%= link_to @post.user.name, user_post_path(@post.user, @post) %><small class="text-muted align-middle pl-2">@<%= link_to @post.user.username, user_post_path(@post.user, @post) %></small>
             </h5>
             <p class="mt-2"><%= raw(@post.parsed_body) %></p>
+
+            <% if @post.parent_id %>
+              <div class="media mt-4 mb-4 px-2 pt-2 text-md-left border-1" style="background: #f9f9f9">
+                <% if @post.parent.user.avatar.presence %>
+                    <%= image_tag @post.parent.user.avatar.variant(resize_to_limit: [80, 80]), class: "card-img-80 d-flex rounded-circle z-depth-1 mr-3" %>
+                  <% else %>
+                    <img class="card-img-100 d-flex z-depth-1 mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
+                  <% end %>
+                  <div class="media-body">
+                    <h5 class="font-weight-bold mt-0 mb-0 text-muted">
+                      <%= link_to @post.parent.user.name, user_post_path(@post.parent.user, @post.parent) %><small class="text-muted align-middle pl-2">@<%= link_to @post.parent.user.username, user_post_path(@post.parent.user, @post.parent) %></small>
+                    </h5>
+                    <p class="mt-2"><%= sanitize(@post.parent.parsed_body.truncate(300)) %></p>
+                  </div>
+                </div>
+            <% end %>
+        
+
             <div class="row" style="background: #f9f9f9; padding-top: 5px; padding-bottom: 5px; margin-left: 1px; margin-right: 1px;">
               <small class="blue-grey-text pl-3">
                 Posted <%= @post.created_at.strftime("%B %e at %H:%M") %>
                 <% if @post.parent_id %>
-                  as reply to <%= link_to post.parent.user.username, user_post_path(@post.parent.user, @post.parent) %><a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= @post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Repost</a>
-                  <%= link_to "View post", user_post_path(@post.user, @post), class: "pl-2" %>
-                  <%= link_to user_post_path(@post.user, post), class: "pl-2" do %>
-                    <i class="fas fa-trash-alt"></i>
-                  <% end %>
+                  as reply to <%= link_to @post.parent.user.username, user_post_path(@post.parent.user, @post.parent) %>
                 <% elsif @post.community %>
-                  in <%= link_to @post.community.name, community_path(@post.community) %><a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= @post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Repost</a>
-                  <%= link_to "View post", community_post_path(@post.community, @post), class: "pl-2" %>
-                  <%= link_to user_post_path(@post.user, @post), class: "pl-2" do %>
-                    <i class="fas fa-trash-alt"></i>
-                  <% end %>
+                  in <%= link_to @post.community.name, community_path(@post.community) %>
                 <% else %>
-                  in Global <a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= @post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Repost</a>
-                  <%= link_to "View post", user_post_path(@post.user, @post), class: "pl-2" %>
+                  in Global 
+                <% end %>
+                <a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= @post.id %>"><i class="fas fa-comment-dots"></i> Reply</a>
+                <a class="pl-3"><i class="fas fa-quote-right"></i> Repost</a>
+                <%= link_to user_post_path(@post.user, @post), class: "pl-2" do %>
+                  View Post (<%= pluralize(@post.replies.count, 'reply') %>)  
+                <% end %>
+                <% if @post.user.id == current_user.id %>
                   <%= link_to user_post_path(@post.user, @post), class: "pl-2" do %>
                     <i class="fas fa-trash-alt"></i>
                   <% end %>
@@ -57,7 +91,7 @@
             </div>
           </div>
         </div>
-        <%= render partial: "posts/reply_block", locals: {post: @post.replies} %>
+        <%= render partial: "posts/reply_block", locals: {post: @post.replies.order(created_at: :desc)} %>
       </section>
     </div>
   </div>
