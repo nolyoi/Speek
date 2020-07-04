@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   resources :posts, only: [:create]
   
   resources :users do 
+    get '/follow' => 'users#follow'
+    post '/follow' => 'users#follow'
     resources :posts, except: [:edit, :update]
   end
 
