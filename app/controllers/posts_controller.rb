@@ -30,6 +30,9 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        if @post.parent
+          format.html { redirect_to user_post_path(@post.parent.user, @post.parent), success: 'Post was successfully created.' }
+        end
         format.html { redirect_to user_post_path(@post.user, @post), success: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
