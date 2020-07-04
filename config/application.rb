@@ -15,7 +15,7 @@ module Speek
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-    config.action_view.sanitized_allowed_tags = ['strong', 'em', 'a', 'p', 'h2', 'h3']
+    config.action_view.sanitized_allowed_tags = ['strong', 'em', 'a', 'p',]
     config.action_view.sanitized_allowed_attributes = ['href', 'title']
   end
 end
