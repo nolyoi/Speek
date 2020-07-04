@@ -21,10 +21,17 @@
       <p class="card-text">
         <%= user.bio %>
       </p>
-      <% if is_following?(current_user) %>
-      <% else %>
+      <% if is_following?(user) %>
         <p>
-          <button type="button" class="btn btn-primary btn-rounded btn-sm btn-block">Follow</button>
+          <%= button_to "Unfollow", user_follow_path(user), method: "post", class: "btn btn-danger btn-sm btn-block" %>
+        </p>
+      <% elsif current_user.id == user.id %>
+        <p>
+          <%= button_to "Can't follow yourself", user_follow_path(user), method: "post", class: "btn btn-primary btn-sm btn-block disabled" %>
+        </p>
+      <% else%>
+        <p>
+          <%= button_to "Follow", user_follow_path(user), method: "post", class: "btn btn-primary btn-sm btn-block" %>
         </p>
       <% end %>
       <!-- Linkedin -->
