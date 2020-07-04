@@ -1,8 +1,8 @@
 module UsersHelper
 
   def is_following?(user)
-    f = user.following.where(id: user.id)
-    false unless f
+    follow = current_user.follows_given.find_by(following_id: user.id)
+    follow.presence ? true : false
   end
 
   def dashboard_activity_posts(user)
