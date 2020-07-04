@@ -9,6 +9,8 @@
             Posted <%= @post.created_at.strftime("%B %e at %H:%M") %>
             <% if @post.community %>
               in <%= link_to @post.community.name, community_post_path(@post.community, @post) %>
+            <% elsif @post.parent_id %>
+              as reply to <%= link_to @post.parent.user.username, user_post_path(@post.parent.user, @post.parent) %>
             <% else %>
               in Global
             <% end %>
@@ -25,53 +27,37 @@
             <img class="card-img-100 d-flex z-depth-1 mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
           <% end %>
           <div class="media-body">
-            <h5 class="font-weight-bold mt-0 mb-0">
-              <a href="">@<%= @post.user.username %></a>
+            <h5 class="font-weight-bold mt-0 mb-0 text-muted">
+              <%= link_to @post.user.name, user_post_path(@post.user, @post) %><small class="text-muted align-middle pl-2">@<%= link_to @post.user.username, user_post_path(@post.user, @post) %></small>
             </h5>
-
             <p class="mt-2"><%= raw(@post.parsed_body) %></p>
-
             <div class="row" style="background: #f9f9f9; padding-top: 5px; padding-bottom: 5px; margin-left: 1px; margin-right: 1px;">
               <small class="blue-grey-text pl-3">
                 Posted <%= @post.created_at.strftime("%B %e at %H:%M") %>
-                <% if @post.community %>
-                  in <%= link_to @post.community.name, community_path(@post.community) %><a href="#modalPostForm" class="pl-3" data-toggle="modal><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Quote/Repost</a>
+                <% if @post.parent_id %>
+                  as reply to <%= link_to post.parent.user.username, user_post_path(@post.parent.user, @post.parent) %><a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= @post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Repost</a>
+                  <%= link_to "View post", user_post_path(@post.user, @post), class: "pl-2" %>
+                  <%= link_to user_post_path(@post.user, post), class: "pl-2" do %>
+                    <i class="fas fa-trash-alt"></i>
+                  <% end %>
+                <% elsif @post.community %>
+                  in <%= link_to @post.community.name, community_path(@post.community) %><a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= @post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Repost</a>
+                  <%= link_to "View post", community_post_path(@post.community, @post), class: "pl-2" %>
+                  <%= link_to user_post_path(@post.user, @post), class: "pl-2" do %>
+                    <i class="fas fa-trash-alt"></i>
+                  <% end %>
                 <% else %>
-                  in Global <a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= @post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Quote/Repost</a>
+                  in Global <a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= @post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Repost</a>
+                  <%= link_to "View post", user_post_path(@post.user, @post), class: "pl-2" %>
+                  <%= link_to user_post_path(@post.user, @post), class: "pl-2" do %>
+                    <i class="fas fa-trash-alt"></i>
+                  <% end %>
                 <% end %>
               </small>
             </div>
           </div>
         </div>
-        <% @post.replies.order(created_at: :desc).each do |reply| %>
-          <div class="media mt-4 mb-3 px-1 text-md-left border-1">
-            <% if reply.user.avatar.presence %>
-              <%= image_tag reply.user.avatar.variant(resize_to_limit: [80, 80]), class: "card-img-80 d-flex rounded-circle z-depth-1 mr-3" %>
-            <% else %>
-              <img class="card-img-100 d-flex z-depth-1 mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
-            <% end %>
-            <div class="media-body ml-2 mt-1">
-              <h5 class="font-weight-bold mt-0 mb-0">
-                <a href="">@<%= reply.user.username %></a>
-              </h5>
-              <p class="mt-2"><%= raw(reply.parsed_body) %>
-                <br>
-                
-              </p>
-              <div class="row" style="background: #f9f9f9; padding-top: 5px; padding-bottom: 5px; margin-left: 1px; margin-right: 1px;">
-                <small class="blue-grey-text pl-3">
-                  Posted <%= reply.created_at.strftime("%B %e at %H:%M") %>
-                  <% if reply.parent_id %>
-                    as reply to <%= link_to reply.parent.user.username, user_post_path(reply.parent.user, reply.parent) %><a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= @post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Quote/Repost</a> 
-                    <%= link_to "View post", user_post_path(reply.user, reply), class: "pl-3" %>
-                  <% else %>
-                    in Global <a href="#modalPostForm" class="pl-3" data-toggle="modal" data-id="<%= @post.id %>"><i class="fas fa-comment-dots"></i> Reply</a><a class="pl-3"><i class="fas fa-quote-right"></i> Quote/Repost</a>
-                  <% end %>
-                </small>
-              </div>
-            </div>
-          </div>
-        <% end %>
+        <%= render partial: "posts/reply_block", locals: {post: @post.replies} %>
       </section>
     </div>
   </div>
