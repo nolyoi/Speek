@@ -4,16 +4,53 @@
     <div class="col-xl-8">
       <section class="my-4">
         <!-- Card header -->
-        <div class="card-header border-0 font-weight-bold d-flex justify-content-between">
-          <p class="mr-4 mb-0">Activity Feed | <a href="#">Blogs</a> | <a href="#">Replies</a></p>
+        <div class="card-header border-0 font-weight-bold d-flex justify-content-between"> 
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item pr-2">
+              <a class="active" id="activity-tab" data-toggle="tab" href="#activity" role="tab" aria-controls="activity"
+            aria-selected="true">Activity</a> 
+            </li>
+            |
+            <li class="nav-item pl-2">
+            <a id="replies-tab" data-toggle="tab" href="#replies" role="tab" aria-controls="replies"
+            aria-selected="false">Replies</a>
+            </li>
+            </ul>
+
           <ul class="list-unstyled list-inline mb-0">
             <li class="list-inline-item"><a href="" class="mr-3"><i class="fas fa-envelope mr-1"></i>Send message</a></li>
-            <li class="list-inline-item"><a href="" class="mr-3"><i class="fas fa-at mr-1"></i>Follow</a></li>
+            <% if is_following?(@user) %>
+              <li class="list-inline-item">
+                <%= link_to user_follow_path(@user), method: "post" do %>
+                  <i class="fas fa-at mr-1"></i>Unfollow
+                <% end %>
+              </li>
+            <% elsif current_user.id == @user.id %>
+              <li class="list-inline-item">
+                <%= link_to user_follow_path(@user), method: "post" do %>
+                  <i class="fas fa-at mr-1"></i>You
+                <% end %>
+              </li>
+            <% else %>
+              <li class="list-inline-item">
+                <%= link_to user_follow_path(@user), method: "post" do %>
+                  <i class="fas fa-at mr-1"></i>Follow
+                <% end %>
+              </li>
+            <% end %>
           </ul>
         </div>
-        <%= render partial: "posts/post_block", locals: {post: @user.posts} %>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="activity">
+            <%= render partial: "posts/post_block", locals: {post: @user.posts.where(parent_id: nil).order(created_at: :desc).paginate(page: params[:page], per_page: 10)} %>
+          </div>
+          <div class="tab-pane fade" id="replies" role="tabpanel" aria-labelledby="replies-tab">
+            <%= render partial: "posts/replies_tab", locals: {post: @user.posts.order(created_at: :desc).paginate(page: params[:page], per_page: 10)} %>
+          </div>
+        </div>
       </section>
     </div>
   </div>
 </div>
+
 
