@@ -125,8 +125,6 @@ GEM
     crass (1.0.6)
     datetime_picker_rails (0.0.7)
       momentjs-rails (>= 2.8.1)
-    emd (0.5.0)
-      redcarpet (= 3.4.0)
     erubi (1.9.0)
     execjs (2.7.0)
     faraday (1.0.1)
@@ -324,6 +322,9 @@ GEM
     websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    will_paginate (3.3.0)
+    will_paginate-bootstrap4 (0.2.2)
+      will_paginate (~> 3.0, >= 3.0.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.3.1)
@@ -343,7 +344,6 @@ DEPENDENCIES
   capybara (>= 2.15)
   ckeditor
   coderay
-  emd
   faker!
   file_validators
   image_processing (~> 1.2)
@@ -374,6 +374,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 4.0)
+  will_paginate-bootstrap4
 
 RUBY VERSION
    ruby 2.7.1p83

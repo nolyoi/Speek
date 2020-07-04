@@ -64,7 +64,9 @@ gem 'public_activity'
 # Markdown 
 gem 'coderay' #optional for Syntax Highlighting
 gem 'redcarpet'
-gem 'emd'
+
+gem 'will_paginate-bootstrap4'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
