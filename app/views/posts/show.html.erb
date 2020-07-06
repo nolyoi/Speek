@@ -49,24 +49,21 @@
               <%= link_to @post.user.name, user_post_path(@post.user, @post) %><small class="text-muted align-middle pl-2">@<%= link_to @post.user.username, user_post_path(@post.user, @post) %></small>
             </h5>
             <p class="mt-2"><%= raw(@post.parsed_body) %></p>
-
             <% if @post.parent_id %>
               <div class="media mt-4 mb-4 px-2 pt-2 text-md-left border-1" style="background: #f9f9f9">
                 <% if @post.parent.user.avatar.presence %>
-                    <%= image_tag @post.parent.user.avatar.variant(resize_to_limit: [80, 80]), class: "card-img-80 d-flex rounded-circle z-depth-1 mr-3" %>
-                  <% else %>
-                    <img class="card-img-100 d-flex z-depth-1 mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
-                  <% end %>
-                  <div class="media-body">
-                    <h5 class="font-weight-bold mt-0 mb-0 text-muted">
-                      <%= link_to @post.parent.user.name, user_post_path(@post.parent.user, @post.parent) %><small class="text-muted align-middle pl-2">@<%= link_to @post.parent.user.username, user_post_path(@post.parent.user, @post.parent) %></small>
-                    </h5>
-                    <p class="mt-2"><%= sanitize(@post.parent.parsed_body.truncate(300)) %></p>
-                  </div>
+                  <%= image_tag @post.parent.user.avatar.variant(resize_to_limit: [80, 80]), class: "card-img-80 d-flex rounded-circle z-depth-1 mr-3" %>
+                <% else %>
+                  <img class="card-img-100 d-flex z-depth-1 mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
+                <% end %>
+                <div class="media-body">
+                  <h5 class="font-weight-bold mt-0 mb-0 text-muted">
+                    <%= link_to @post.parent.user.name, user_post_path(@post.parent.user, @post.parent) %><small class="text-muted align-middle pl-2">@<%= link_to @post.parent.user.username, user_post_path(@post.parent.user, @post.parent) %></small>
+                  </h5>
+                  <p class="mt-2"><%= sanitize(@post.parent.parsed_body.truncate(300)) %></p>
                 </div>
+              </div>
             <% end %>
-        
-
             <div class="row" style="background: #f9f9f9; padding-top: 5px; padding-bottom: 5px; margin-left: 1px; margin-right: 1px;">
               <small class="blue-grey-text pl-3">
                 Posted <%= @post.created_at.strftime("%B %e at %H:%M") %>
@@ -96,4 +93,3 @@
     </div>
   </div>
 </div>
-
