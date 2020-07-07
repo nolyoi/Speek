@@ -61,10 +61,11 @@ gem 'tinymce-rails'
 gem 'activity_notification'
 gem 'public_activity'
 
-# Markdown 
-gem 'coderay' #optional for Syntax Highlighting
+# Markdown and syntax highlighting
+gem 'coderay'
 gem 'redcarpet'
 
+# Pagination
 gem 'will_paginate-bootstrap4'
 
 
@@ -82,6 +83,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'mailcatcher'
+  gem 'actionview-encoded_mail_to'
 end
 
 group :test do
