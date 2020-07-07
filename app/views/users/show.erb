@@ -21,19 +21,19 @@
             <li class="list-inline-item"><a href="" class="mr-3"><i class="fas fa-envelope mr-1"></i>Send message</a></li>
             <% if is_following?(@user) %>
               <li class="list-inline-item">
-                <%= link_to user_follow_path(@user), method: "post" do %>
+                <%= link_to user_unfollow_path(@user) do %>
                   <i class="fas fa-at mr-1"></i>Unfollow
                 <% end %>
               </li>
             <% elsif current_user.id == @user.id %>
               <li class="list-inline-item">
-                <%= link_to user_follow_path(@user), method: "post" do %>
+                <%= link_to user_follow_path(@user) do %>
                   <i class="fas fa-at mr-1"></i>You
                 <% end %>
               </li>
             <% else %>
               <li class="list-inline-item">
-                <%= link_to user_follow_path(@user), method: "post" do %>
+                <%= link_to user_follow_path(@user) do %>
                   <i class="fas fa-at mr-1"></i>Follow
                 <% end %>
               </li>
