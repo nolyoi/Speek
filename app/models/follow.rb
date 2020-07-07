@@ -4,9 +4,8 @@ class Follow < ApplicationRecord
   belongs_to :follower, foreign_key: :follower_id, class_name: 'User'
   belongs_to :following, foreign_key: :following_id, class_name: 'User', optional: true
 
-  validates :follower_id, presence: true
-  validates :following_id, presence: true
-  
+  validates_presence_of :follower_id, :following_id
+
   before_save :prevent_double_follow
 
   acts_as_notifiable :users,
@@ -27,9 +26,4 @@ class Follow < ApplicationRecord
     end
   end
 
-  # def create_membership_on_follow
-  # 	if self.following_community_id
-  # 		membership = CommunityMembership.create(user_id: self.follower_id, community_id: self.following_community_id)
-  # 	end
-  # end
 end
