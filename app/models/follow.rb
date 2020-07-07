@@ -5,6 +5,8 @@ class Follow < ApplicationRecord
   belongs_to :following, foreign_key: :following_id, class_name: 'User', optional: true
 
   validates :follower_id, presence: true
+  validates :following_id, presence: true
+  
   before_save :prevent_double_follow
 
   acts_as_notifiable :users,
