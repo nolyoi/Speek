@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include ApplicationHelper
   include UsersHelper
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :follow]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :follow, :unfollow]
   load_and_authorize_resource param_method: :user_params
 
   def index
@@ -65,10 +65,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def unfollow 
+    @follow = current_user.follows_given.find_by(following_id: params[:user_id])
+    if @follow.destroy
+      flash[:success] = "You have unfollowed #{@user.username}."
+      redirect_to user_path(@user)
+    else
+      flash[:danger] = 'Something went wrong. Please try again.'
+      redirect_to user_path(@user)
+    end
+  end
+
   private
 
   def set_user
-    @user = User.find(params[:id]) || User.find(params[:user_id])
+    if params[:user_id]
+      @user = User.find(params[:user_id]) 
+    else
+      @user = User.find(params[:id]) 
+    end
   end
 
   def user_params
