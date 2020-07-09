@@ -7,7 +7,7 @@ class Like < ApplicationRecord
     like = Like.find_by(user_id: self.user_id, post_id: self.post_id)
     if like
       self.delete
-      flash[:danger] = "You can only like a post once!"
+      flash[:warning] = "You can only like a post once!"
     end
   end
 end
