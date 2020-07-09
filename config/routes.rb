@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :conversations
+  resources :messages
+  namespace :private do
+    end
   notify_to :users
 
   root 'static#index'
@@ -17,15 +21,19 @@ Rails.application.routes.draw do
   # Dashboard
   get '/users/dashboard' => 'users#dashboard'
 
-  resources :communities do
-    resources :posts, except: %i[edit update]
-  end
-
   resources :posts, only: [:create]
+
+  namespace :private do 
+    resources :conversations
+  end
 
   resources :users do
     get '/follow' => 'users#follow'
     get '/unfollow' => 'users#unfollow'
+    resources :posts, except: %i[edit update]
+  end
+
+  resources :communities do
     resources :posts, except: %i[edit update]
   end
 
