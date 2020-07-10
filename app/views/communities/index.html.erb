@@ -1,33 +1,68 @@
-<p id="notice"><%= notice %></p>
+<div class="container-lg container-body py-5 px-4">
+  <div class="card-group">
+    <%= render partial: "users/user_card", locals: {user: current_user} %>
+      <div class="col-xl-8">
+        <section class="my-4">
+          <% if current_user %>
+            <h2 class="float-left">My Communities</h2>
+            <%= button_to "Create Community", new_community_path, class: "btn btn-sm btn-light-green float-right d-inline" %>
+            <table class="table">
+              <thead class="black white-text">
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
 
-<h1>Communities</h1>
+              <tbody>
+                <% current_user.communities.each do |community| %>
+                  <tr>
+                    <td><%= link_to community.name, community_path(community) %></td>
+                    <td><%= community.description %></td>
+                    <td>
+                      <%= link_to 'View', community %> 
+                      <% if is_community_admin?(current_user, community) %>
+                        | <%= link_to 'Edit', edit_community_path(community) %> | 
+                        <%= link_to 'Destroy', community, method: :delete, data: { confirm: 'Are you sure?' } %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Post</th>
-      <th>Admin</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @communities.each do |community| %>
-      <tr>
-        <td><%= community.name %></td>
-        <td><%= community.description %></td>
-        <td><%= community.post_id %></td>
-        <td><%= community.admin_id %></td>
-        <td><%= link_to 'Show', community %></td>
-        <td><%= link_to 'Edit', edit_community_path(community) %></td>
-        <td><%= link_to 'Destroy', community, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          <h2 class="pt-5">All Communities</h2>
+          <table class="table">
+            <thead class="black white-text">
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
 
-<br>
+            <tbody>
+              <% @communities.each do |community| %>
+                <tr>
+                  <td><%= link_to community.name, community_path(community) %></td>
+                  <td><%= community.description %></td>
+                  <td>
+                    <%= link_to 'View', community %> 
+                    <% if is_community_admin?(current_user, community) %>
+                      | <%= link_to 'Edit', edit_community_path(community) %> | 
+                      <%= link_to 'Destroy', community, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'New Community', new_community_path %>

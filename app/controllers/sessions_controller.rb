@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  # skip_before_action :verify_authenticity_token, only: [:omni]
+  
 
   def new
     if current_user
       flash[:info] = "You are already logged in as #{current_user.email}!"
       redirect_to root_path
-    else
-      render layout: false
     end
   end
 

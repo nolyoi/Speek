@@ -1,6 +1,16 @@
-<h1>Editing Community</h1>
+<div class="container-lg container-body py-5 px-4">
+  <div class="card-group">
+    <%= render partial: "users/user_card", locals: {user: current_user} %>
+      <div class="col-xl-8">
+        <section class="my-4">
+          <h1>Editing Community</h1>
 
-<%= render 'form', community: @community %>
+          <%= render 'form', community: @community %>
 
-<%= link_to 'Show', @community %> |
-<%= link_to 'Back', communities_path %>
+          <%= link_to 'Show', @community %> |
+          <%= link_to 'Back', communities_path %>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

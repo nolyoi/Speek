@@ -1,4 +1,5 @@
-<%= form_with(model: community, local: true) do |form| %>
+
+<%= form_with model: community, local: true do |form| %>
   <% if community.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(community.errors.count, "error") %> prohibited this community from being saved:</h2>
