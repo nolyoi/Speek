@@ -1,28 +1,44 @@
 
-<%= form_with model: community, local: true do |form| %>
-  <% if community.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(community.errors.count, "error") %> prohibited this community from being saved:</h2>
-
-      <ul>
-        <% community.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<%= form_with model: community, local: true do |f| %>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group mx-auto text-center">
+      <% if community.avatar.presence %>
+        <%= image_tag community.avatar.variant(resize_to_limit: [200, 200]), class: "mb-3 mx-auto" %>
+      <% end %>
+      <div class="row mx-auto">
+        <%= label_tag :avatar, "Avatar", class: "mt-4 mx-auto" %>
+        <%= f.file_field :avatar, class: "form-control-file mx-auto mb-4" %>
+      </div>
     </div>
-  <% end %>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group mx-auto text-center">
+      <% if community.header_image.presence %>
+        <%= image_tag community.header_image.variant(resize_to_limit: [200, 200]), class: "mb-3 mx-auto" %>
+      <% end %>
+      <div class="row mx-auto">
+        <%= label_tag :header_image, "Header Image", class: "mt-4 mx-auto" %>
+        <%= f.file_field :header_image, class: "form-control-file mx-auto mb-4" %>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="form-field">
+    <%= f.label :name, data_toggle: "tooltip", data_placement:"top", title: "Community name can't be changed." %>
+    <%= f.text_field :name, class: "form-control form-control-lg", disabled: true, data_toggle: "tooltip", data_placement:"top", title: "Community name can't be changed." %>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+  <div class="form-field mt-3">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: "form-control form-control-lg", rows: "7" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-field float-right mt-2">
+    <%= f.submit "Submit", :class => "btn btn-primary" %>
+      <% if community %>
+        <%= f.submit "Delete Community", :class => "btn btn-danger mx-2", data: { confirm: 'Are you sure? This will delete your account and ALL associated data!' } %>
+      <% end %>
   </div>
 <% end %>

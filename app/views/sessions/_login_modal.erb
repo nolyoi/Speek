@@ -26,7 +26,22 @@
         <div class="modal-footer d-flex justify-content-center">
           <%= f.submit "Sign-in", :class => "btn btn-purple" %>
         </div>
-      </div>
-    <% end %>
+        <% end %>
+          <div class="modal-footer d-flex justify-content-center">
+            <p>or sign in with:</p>
+            <p>
+            <%= button_to '/auth/developer', class: "btn btn-primary btn-sm" do %>
+              <i class="fab fa-facebook-f"></i>
+            <% end %>
+            </a>
+            <a type="button" class="btn-floating btn-tw btn-sm">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a type="button" class="btn-floating btn-git btn-sm">
+              <i class="fab fa-github"></i>
+            </a>
+            </p>
+          </div>
+    </div>
   </div>
 </div>

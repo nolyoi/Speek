@@ -22,15 +22,12 @@
         <%= user.bio %>
       </p>
       <% if current_user %>
-      <p>
         <% if is_following?(user) %>
-          <%= link_to "Unfollow", user_unfollow_path(user), class: "btn btn-danger btn-sm btn-block" %>
+          <p><%= link_to "Unfollow", user_unfollow_path(user), class: "btn btn-danger btn-sm btn-block" %></p>
         <% elsif current_user.id == user.id %>
-          <%= link_to "Can't follow yourself", user_follow_path(user), class: "btn btn-primary btn-sm btn-block disabled" %>
         <% else%>
-          <%= link_to "Follow", user_follow_path(user), class: "btn btn-primary btn-sm btn-block" %>
+          <p><%= link_to "Follow", user_follow_path(user), class: "btn btn-primary btn-sm btn-block" %></p>
         <% end %>
-        </p>
       <% end %>
         <% if user.facebook_url %>
           <a class="px-2 fa-lg fb-ic"><i class="fab fa-facebook-f"></i></a>
