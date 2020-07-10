@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/activerecord-hackery/ransack.git
-  revision: c9cc20de9e0f7bab92e0579c85bed64d614d23de
-  specs:
-    ransack (2.3.2)
-      activerecord (>= 5.2.1)
-      activesupport (>= 5.2.1)
-      i18n
-
-GIT
   remote: https://github.com/faker-ruby/faker.git
   revision: 7309c9d59f1f73e7875635c083f7d8958e0c9f3a
   branch: master
@@ -355,8 +346,6 @@ GEM
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    tinymce-rails (5.4.0)
-      railties (>= 3.1.1)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -419,7 +408,6 @@ DEPENDENCIES
   public_activity
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.2)
-  ransack!
   redcarpet
   sass-rails (>= 6)
   selenium-webdriver
@@ -427,7 +415,6 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sprockets-rails
   stripe (~> 5.22)
-  tinymce-rails
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 3.3.0)
