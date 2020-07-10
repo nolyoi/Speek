@@ -17,5 +17,6 @@ module Speek
     # the framework and any gems in your application.
     config.action_view.sanitized_allowed_tags = ['strong', 'em', 'a', 'p',]
     config.action_view.sanitized_allowed_attributes = ['href', 'title']
+    config.assets.initialize_on_precompile = false
   end
 end
