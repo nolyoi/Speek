@@ -8,7 +8,7 @@
 admin = User.create(name: "Nolan", email: "nolyoi210@gmail.com", username: "nolyoi", password: "password", password_confirmation: "password")
 community = admin.communities.create(name: "Bitcoin Community", description: "Post about BTC!")
 
-40.times do
+42.times do
   user = User.create(name: Faker::Name.unique.name, email: Faker::Internet.email, username: Faker::Twitter.unique.screen_name, password: "password", password_confirmation: "password")
   user.follows_given.create(following_id: 1)
   user.posts.create(body: "Hello World!")
