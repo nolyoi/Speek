@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  
+  skip_before_action :verify_authenticity_token, :only => [:omni]
 
   def new
     if current_user
@@ -21,15 +21,13 @@ class SessionsController < ApplicationController
   end
 
   def omni
-    @user = User.find_or_create_by(uid: auth[:uid]) do |u|
-      u.name = auth[:info][:name]
-      u.uid = auth[:uid]
-    end
+    auth = request.env["omniauth.auth"]
+    user = User.where(:provider => auth['provider'],
+                      :uid => auth['uid'].to_s).first || User.create_with_omniauth(auth)
+    reset_session
+    session[:user_id] = user.id
 
-    pp request.env['omniauth.auth']
-    session[:user_id] = @user.id
-
-    redirect_to root_path
+    redirect_to root_path, :success => 'Signed in!'
   end
 
   def destroy
@@ -43,7 +41,4 @@ class SessionsController < ApplicationController
     request.env['omniauth.auth']
   end
 
-  def user_params
-    params.require(:user).permit(:username, :password)
-  end
 end

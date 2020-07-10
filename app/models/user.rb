@@ -31,4 +31,22 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { in: 8..50 }
   validates :bio, length: { maximum: 200 }
+
+  private
+
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      username = auth['info']['name'].to_s.split
+      username = username[0] + rand(100..1000).to_s
+
+      user.provider = auth['provider']
+      user.uid = auth['uid']
+      user.username = username
+      user.email = auth['info']['email']
+      user.password = auth["uid"] + username
+      if auth['info']
+         user.name = auth['info']['name'] || ""
+      end
+    end
+  end
 end

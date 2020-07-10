@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
   get '/register' => 'users#new'
-  match '/auth/:provider/callback', to: 'sessions#omni', via: %i[get post]
+  match '/auth/:provider/callback', to: 'sessions#omni', via: %i[get post], as: 'omni'
 
   # Dashboard
   get '/users/dashboard' => 'users#dashboard'
