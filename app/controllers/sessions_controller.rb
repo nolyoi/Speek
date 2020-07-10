@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to users_dashboard_path, { success: "Welcome back to Speek, #{current_user.username}!" }
     else
-      redirect_to login_path, { alert: 'Your Username or Password was invalid' }
+      redirect_to root_path, { alert: 'Your Username or Password was invalid' }
     end
   end
 
