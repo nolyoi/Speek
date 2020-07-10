@@ -68,7 +68,6 @@ gem 'redcarpet'
 # Pagination
 gem 'will_paginate-bootstrap4'
 
-gem "aws-sdk-s3"
 
 
 group :development, :test do
