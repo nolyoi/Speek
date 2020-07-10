@@ -2,7 +2,7 @@
 
 class CommunitiesController < ApplicationController
   include CommunitiesHelper
-  before_action :set_community, only: %i[show edit update destroy]
+  before_action :set_community, only: [:show, :edit, :update, :destroy, :join, :leave]
 
   # GET /communities
   # GET /communities.json
@@ -59,6 +59,27 @@ class CommunitiesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to communities_url, notice: 'Community was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def join
+    membership = CommunityMembership.new(community_id: @community.id, user_id: current_user.id)
+    if membership.save
+      flash[:success] = "You are now a member of #{@community.name}!"
+      redirect_to community_path(@community)
+    else
+      flash[:danger] = "Sorry, something went wrong. Please try again."
+    end
+  end
+
+  def leave
+    membership = current_user.community_memberships.find_by(community_id: @community.ids)
+    if membership.destroy
+      flash[:success] = "You have successfully left #{@community.name}!"
+      redirect_to user_path(current_user)
+    else
+      flash[:danger] = "Sorry, something went wrong. Please try again."
+      redirect_to community_path(@community)
     end
   end
 
