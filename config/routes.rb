@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   end
 
   resources :communities do
+    get '/join' => 'communities#join'
+    get '/leave' => 'communities#leave'
     resources :posts, except: %i[edit update]
   end
 
