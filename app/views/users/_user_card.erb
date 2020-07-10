@@ -21,21 +21,27 @@
       <p class="card-text">
         <%= user.bio %>
       </p>
+      <% if current_user %>
       <p>
-      <% if is_following?(user) %>
-        <%= link_to "Unfollow", user_unfollow_path(user), class: "btn btn-danger btn-sm btn-block" %>
-      <% elsif current_user.id == user.id %>
-        <%= link_to "Can't follow yourself", user_follow_path(user), class: "btn btn-primary btn-sm btn-block disabled" %>
-      <% else%>
-        <%= link_to "Follow", user_follow_path(user), class: "btn btn-primary btn-sm btn-block" %>
+        <% if is_following?(user) %>
+          <%= link_to "Unfollow", user_unfollow_path(user), class: "btn btn-danger btn-sm btn-block" %>
+        <% elsif current_user.id == user.id %>
+          <%= link_to "Can't follow yourself", user_follow_path(user), class: "btn btn-primary btn-sm btn-block disabled" %>
+        <% else%>
+          <%= link_to "Follow", user_follow_path(user), class: "btn btn-primary btn-sm btn-block" %>
+        <% end %>
+        </p>
       <% end %>
-      </p>
-      <!-- Linkedin -->
-      <a class="px-2 fa-lg li-ic"><i class="fab fa-linkedin-in"></i></a>
-      <!-- Twitter -->
-      <a class="px-2 fa-lg tw-ic"><i class="fab fa-twitter"></i></a>
-      <!-- Dribbble -->
-      <a class="px-2 fa-lg fb-ic"><i class="fab fa-facebook-f"></i></a>
+        <% if user.facebook_url %>
+          <a class="px-2 fa-lg fb-ic"><i class="fab fa-facebook-f"></i></a>
+        <% end %>
+        <% if user.twitter_url %>
+          <a class="px-2 fa-lg tw-ic"><i class="fab fa-twitter"></i></a>
+        <% end %>
+        <% if user.website_url %>
+          <a class="px-2 fa-lg li-ic"><i class="fab fa-globe"></i></a>
+        <% end %>
+      
     </div>
   </div>
   <!-- Card -->
