@@ -5,6 +5,10 @@ module UsersHelper
     follow.presence ? true : false
   end
 
+  def is_admin?(user)
+    user.role == "admin"
+  end
+
   def dashboard_activity_posts(user)
     activity = []
 
