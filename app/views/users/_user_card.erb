@@ -13,10 +13,14 @@
     <!-- Card content -->
     <div class="card-body card-body-cascade text-center">
       <!-- Title -->
-      <h4 class="card-title"><strong>@<%= user.username %></strong></h4>
+      <h4 class="card-title mb-0">
+        <strong>@<%= user.username %></strong>
+      </h4>
+      <% if is_admin?(user) %>
+          <span class="badge badge-pill badge-success mt-0 mb-2 z-depth-0">Admin</span>
+      <% end %>
       <!-- Subtitle -->
       
-      <h6 class="font-weight-bold indigo-text pb-1 pt-0 mt-0">About</h6>
       <!-- Text -->
       <p class="card-text">
         <%= user.bio %>
