@@ -10,7 +10,7 @@ admin = User.create(name: "Nolan M.", username: "nolyoi", email: "nolyoi@hey.com
 community = admin.communities.create(name: "Bitcoin Community", description: "This is a community for BTC enthusiasts.")
 
 40.times do
-  user = User.create(name: Faker::Name.unique.name, name: Faker::Internet.unique.email, username: Faker::Twitter.unique.screen_name, password: "password", password_confirmation: "password")
+  user = User.create(name: Faker::Name.unique.name, email: Faker::Internet.unique.email, username: Faker::Twitter.unique.screen_name, password: "password", password_confirmation: "password")
   user.follows_given.create(following_id: 1)
   user.posts.create(body: "Hello World!")
 end
