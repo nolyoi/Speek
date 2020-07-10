@@ -40,9 +40,9 @@
         </div>
         <div class="media mt-4 px-1 text-md-left border-1">
           <% if @post.user.avatar.presence %>
-            <%= image_tag @post.user.avatar.variant(resize_to_limit: [80, 80]), class: "card-img-80 d-flex rounded-circle z-depth-1 mr-3" %>
+            <%= image_tag @post.user.avatar.variant(resize_to_limit: [80, 80]), class: "card-img-80 d-flex rounded-circle mr-3" %>
           <% else %>
-            <img class="card-img-100 d-flex z-depth-1 mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
+            <img class="card-img-100 d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
           <% end %>
           <div class="media-body">
             <h5 class="font-weight-bold mt-0 mb-0 text-muted">
@@ -52,9 +52,9 @@
             <% if @post.parent_id %>
               <div class="media mt-4 mb-4 px-2 pt-2 text-md-left border-1" style="background: #f9f9f9">
                 <% if @post.parent.user.avatar.presence %>
-                  <%= image_tag @post.parent.user.avatar.variant(resize_to_limit: [80, 80]), class: "card-img-80 d-flex rounded-circle z-depth-1 mr-3" %>
+                  <%= image_tag @post.parent.user.avatar.variant(resize_to_limit: [80, 80]), class: "card-img-80 d-flex rounded-circle mr-3" %>
                 <% else %>
-                  <img class="card-img-100 d-flex z-depth-1 mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
+                  <img class="card-img-100 d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
                 <% end %>
                 <div class="media-body">
                   <h5 class="font-weight-bold mt-0 mb-0 text-muted">

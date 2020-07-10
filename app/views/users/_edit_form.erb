@@ -2,7 +2,6 @@
   <h2>Edit Profile</h2>
 </div>
 <%= form_with model: @user, local: true do |f| %>
-<%= f.hidden_field :owner_id, value: current_user.id %>
   <div class="form-row mt-4">
     <div class="form-group col-xl-3 mx-auto text-center">
       <% if @user.avatar.presence %>
@@ -67,7 +66,9 @@
 
     <div class="form-row float-right">
       <%= f.submit "Submit", :class => "btn btn-primary" %>
-      <%= f.submit "Delete Account", :class => "btn btn-danger mx-2", data: { confirm: 'Are you sure? This will delete your account and ALL associated data!' } %>
+      <% if current_user %>
+        <%= f.submit "Delete Account", :class => "btn btn-danger mx-2", data: { confirm: 'Are you sure? This will delete your account and ALL associated data!' } %>
+      <% end %>
     </div>  
 
     </div>

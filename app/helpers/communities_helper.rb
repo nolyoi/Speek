@@ -10,6 +10,11 @@ module CommunitiesHelper
     c.role == 1 ? true : false
   end
 
+  def is_community_member?(user, community)
+    c = user.community_memberships.find_by(community_id: community.id)
+    c ? true : false
+  end
+
   def get_admins(community)
     admins = CommunityMembership.where(community_id: community.id, role: 2)
 
@@ -23,6 +28,10 @@ module CommunitiesHelper
 
   # Use callbacks to share common setup or constraints between actions.
   def set_community
-    @community = Community.find(params[:id])
+    if params[:community_id]
+      @community = Community.find(params[:community_id]) 
+    else
+      @community = Community.find(params[:id]) 
+    end
   end
 end

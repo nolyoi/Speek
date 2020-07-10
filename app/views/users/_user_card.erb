@@ -21,19 +21,15 @@
       <p class="card-text">
         <%= user.bio %>
       </p>
+      <p>
       <% if is_following?(user) %>
-        <p>
-          <%= link_to "Unfollow", user_unfollow_path(user), class: "btn btn-danger btn-sm btn-block" %>
-        </p>
+        <%= link_to "Unfollow", user_unfollow_path(user), class: "btn btn-danger btn-sm btn-block" %>
       <% elsif current_user.id == user.id %>
-        <p>
-          <%= link_to "Can't follow yourself", user_follow_path(user), class: "btn btn-primary btn-sm btn-block disabled" %>
-        </p>
+        <%= link_to "Can't follow yourself", user_follow_path(user), class: "btn btn-primary btn-sm btn-block disabled" %>
       <% else%>
-        <p>
-          <%= link_to "Follow", user_follow_path(user), class: "btn btn-primary btn-sm btn-block" %>
-        </p>
+        <%= link_to "Follow", user_follow_path(user), class: "btn btn-primary btn-sm btn-block" %>
       <% end %>
+      </p>
       <!-- Linkedin -->
       <a class="px-2 fa-lg li-ic"><i class="fab fa-linkedin-in"></i></a>
       <!-- Twitter -->

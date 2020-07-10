@@ -26,7 +26,8 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  validates :username, uniqueness: true, presence: true, length: { minimum: 3, maximum: 14 }
+  validates :username, uniqueness: true, presence: true, length: { minimum: 3, maximum: 14 }, format: { with: /\A[\w-]+\z/, 
+                                                                                                        message: "Invalid username. Please choose another!" }
   validates :email, uniqueness: true, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { in: 8..50 }
   validates :bio, length: { maximum: 200 }

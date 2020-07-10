@@ -18,7 +18,15 @@
       <p class="card-text"><%= community.description %></p>
 
       <p>
-        <strong>Admins</strong><br>
+      <% if is_community_member?(current_user, community) %>
+        <%= link_to "Leave", community_leave_path(community), class: "btn btn-danger btn-sm btn-block" %>
+      <% else%>
+        <%= link_to "Join", community_join_path(community), class: "btn btn-primary btn-sm btn-block" %>
+      <% end %>
+      </p>
+
+      <p>
+        <strong>Admin(s)</strong><br>
           <% get_admins(community).each do |admin| %>
             <%= link_to admin.username, user_path(admin) %>
           <% end %>
