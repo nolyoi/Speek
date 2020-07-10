@@ -28,50 +28,66 @@
               Communities
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#modalPostForm">
-            <i class="fas fa-plus"></i>
-              New Post
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect waves-light">1
-            <i class="fas fa-envelope"></i>
-          </a>
-        </li>
         <% if current_user %>
           <% if current_user.avatar.presence %>
-          <li class="nav-item avatar dropdown">
-            <a class="nav-link" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-                <%= image_tag current_user.avatar.variant(resize_to_limit: [25, 25]), class: "rounded-circle z-depth-0" %>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
-            aria-labelledby="navbarDropdownMenuLink-333">
-            <%= link_to "Your Profile", user_path(current_user), class: "dropdown-item" %> 
-            <%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %> 
-            <%= link_to "Logout", logout_path, method: "delete", class: "dropdown-item" %> 
-          </div>
-        </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#modalPostForm">
+                <i class="fas fa-plus"></i>
+                  New Post
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light">1
+                <i class="fas fa-envelope"></i>
+              </a>
+            </li>
+            <li class="nav-item avatar dropdown">
+              <a class="nav-link" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                  <%= image_tag current_user.avatar.variant(resize_to_limit: [25, 25]), class: "rounded-circle z-depth-0" %>
+              </a>
+              <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+              aria-labelledby="navbarDropdownMenuLink-333">
+              <%= link_to "Your Profile", user_path(current_user), class: "dropdown-item" %> 
+              <%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %> 
+              <%= link_to "Logout", logout_path, method: "delete", class: "dropdown-item" %> 
+            </div>
+          </li>
             <% else %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-user"></i>
-            @<%= current_user.username %>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-default"
-            aria-labelledby="navbarDropdownMenuLink-333">
-            <%= link_to "Your Profile", user_path(current_user), class: "dropdown-item" %> 
-            <%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %> 
-            <%= link_to "Logout", logout_path, method: "delete", class: "dropdown-item" %> 
-          </div>
-        </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#modalPostForm">
+                <i class="fas fa-plus"></i>
+                  New Post
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light">1
+                <i class="fas fa-envelope"></i>
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user"></i>
+                @<%= current_user.username %>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                aria-labelledby="navbarDropdownMenuLink-333">
+                <%= link_to "Your Profile", user_path(current_user), class: "dropdown-item" %> 
+                <%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %> 
+                <%= link_to "Logout", logout_path, method: "delete", class: "dropdown-item" %> 
+              </div>
+            </li>
           <% end %>
         <% else %>
         <li class="nav-item">
           <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#modalLoginForm">
             <i class="fas fa-user"></i>Login
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="/register">
+            <i class="fas fa-user"></i>Register
           </a>
         </li>
         <% end %>
