@@ -1,6 +1,6 @@
 <div class="container-lg container-body py-5 px-4">
   <div class="card-group">
-    <%= render partial: "communities/sidebar", locals: {community: @community} %>
+    <%= render partial: "users/user_card", locals: {user: current_user} %>
       <div class="col-xl-8">
         <section class="my-4">
           <h2>Create a Community</h2>
