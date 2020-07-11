@@ -15,6 +15,8 @@ class Ability
       can :manage, User, id: user.id
       can :dashboard, User
       can :read, User
+      
+      can :manage, Community
 
       can :manage, Private::Message, to_id: user.id
       can :manage, Private::Message, from_id: user.id
