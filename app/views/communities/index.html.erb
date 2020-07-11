@@ -5,7 +5,7 @@
         <section class="my-4">
           <% if current_user %>
             <h2 class="float-left">My Communities</h2>
-            <%= button_to "Create Community", new_community_path, class: "btn btn-sm btn-light-green float-right d-inline" %>
+            <%= link_to "Create Community", new_community_path, class: "btn btn-sm btn-light-green float-right d-inline" %>
             <table class="table">
               <thead class="black white-text">
                 <tr>
