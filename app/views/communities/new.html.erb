@@ -1,6 +1,14 @@
 <div class="container-lg container-body py-5 px-4">
-  <%= render 'form', community: @community %>
-  <%= link_to 'Back', communities_path %>
+  <div class="card-group">
+    <%= render partial: "communities/sidebar", locals: {community: @community} %>
+      <div class="col-xl-8">
+        <section class="my-4">
+          <h2>Create a Community</h2>
+
+          <%= render 'new_form', community: @community %>
+
+        </section>
+      </div>
+    </div>
+  </div>
 </div>
-
-
