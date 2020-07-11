@@ -1,7 +1,7 @@
 module UsersHelper
 
   def is_following?(user)
-    follow = user.follows_given.find_by(following_id: user.id)
+    follow = current_user.follows_given.find_by(following_id: user.id)
     follow.presence ? true : false
   end
 

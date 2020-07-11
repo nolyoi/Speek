@@ -29,10 +29,12 @@
         <% if is_following?(user) %>
           <p><%= link_to "Unfollow", user_unfollow_path(user), class: "btn btn-danger btn-sm btn-block" %></p>
         <% elsif current_user.id == user.id %>
+          
         <% else%>
           <p><%= link_to "Follow", user_follow_path(user), class: "btn btn-primary btn-sm btn-block" %></p>
         <% end %>
       <% end %>
+
         <% if user.facebook_url %>
           <a class="px-2 fa-lg fb-ic"><i class="fab fa-facebook-f"></i></a>
         <% end %>

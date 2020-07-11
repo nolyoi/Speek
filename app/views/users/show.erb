@@ -27,11 +27,7 @@
                   <% end %>
                 </li>
               <% elsif current_user.id == @user.id %>
-                <li class="list-inline-item">
-                  <%= link_to user_follow_path(@user) do %>
-                    <i class="fas fa-at mr-1"></i>You
-                  <% end %>
-                </li>
+              
               <% else %>
                 <li class="list-inline-item">
                   <%= link_to user_follow_path(@user) do %>
