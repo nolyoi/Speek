@@ -9,10 +9,10 @@
       <h5 class="font-weight-bold mt-0 mb-0 text-muted float-left">
         <%= link_to post.user.name, user_path(post.user) %>
       </h5><br>
-      <small class="text-muted d-block">@<%= link_to post.user.username, user_path(post.user) %></small>
-      <p class="pt-3">
+      <small class="text-muted d-block mb-3">@<%= link_to post.user.username, user_path(post.user) %></small>
+
         <% if post.body.length > 600 %>
-          <%= sanitize(post.parsed_body.truncate(600)) %>
+          <%= sanitize(post.parsed_body.truncate(600), tags: %w(h3 h2 p)) %>
           <%= link_to "Read full post", user_post_path(post.user, post) %>
         <% else %>
           <%= raw(post.parsed_body) %>
@@ -27,7 +27,6 @@
             </div>
           </div>
         <% end %>
-      </p>
       <div class="row" style="background: #f9f9f9; padding-top: 5px; padding-bottom: 5px; margin-left: 1px; margin-right: 1px;">
         <small class="blue-grey-text pl-3">
           <%= post.created_at.strftime("%B %e at %H:%M") %>

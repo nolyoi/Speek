@@ -57,34 +57,40 @@
   </div>
   <!-- Card -->
   <!-- Card -->
-  <div class="card card-cascade wider mt-3">
-    <!-- Card image -->
-    <div class="view view-cascade gradient-card-header peach-gradient">
-      <!-- Title -->
-      <h2 class="card-header-title my-4 white-text mx-auto text-center"><strong><%= number_to_human(user.followers.count) %></strong> <small class="mb-0">Followers</small></h2>
-      <!-- Text -->
+  <div class="row">
+  <div class="col-xl-12 col-sm-4">
+    <div class="card card-cascade wider mt-3">
+      <!-- Card image -->
+      <div class="view view-cascade gradient-card-header peach-gradient">
+        <!-- Title -->
+        <h2 class="card-header-title my-4 white-text mx-auto text-center"><strong><%= number_to_human(user.followers.count) %></strong> <small class="mb-0">Followers</small></h2>
+        <!-- Text -->
+      </div>
     </div>
   </div>
   <!-- Card -->
   <!-- Card -->
-  <div class="card card-cascade wider mt-3">
-    <!-- Card image -->
-    <div class="view view-cascade gradient-card-header aqua-gradient">
-      <!-- Title -->
-      <h2 class="card-header-title my-4 white-text mx-auto text-center"><strong><%= number_to_human(user.following.count) %></strong> <small class="mb-0">Following</small></h2>
-      <!-- Text -->
+  <div class="col-xl-12 col-sm-4">
+    <div class="card card-cascade wider mt-3">
+      <!-- Card image -->
+      <div class="view view-cascade gradient-card-header aqua-gradient">
+        <!-- Title -->
+        <h2 class="card-header-title my-4 white-text mx-auto text-center"><strong><%= number_to_human(user.following.count) %></strong> <small class="mb-0">Following</small></h2>
+        <!-- Text -->
+      </div>
     </div>
   </div>
-  <!-- Card -->
-  <!-- Card -->
-  <!-- Card -->
-  <div class="card card-cascade wider mt-3">
-    <!-- Card image -->
-    <div class="view view-cascade gradient-card-header purple-gradient">
-      <!-- Title -->
-      <h2 class="card-header-title my-4 white-text mx-auto text-center"><strong><%= number_to_human(user.community_memberships.count) %></strong> <small class="mb-0"> Memberships</small></h2>
-      <!-- Text -->
+
+
+    <div class="col-xl-12 col-sm-4">
+      <div class="card card-cascade wider mt-3">
+        <!-- Card image -->
+        <div class="view view-cascade gradient-card-header purple-gradient">
+          <!-- Title -->
+          <h2 class="card-header-title my-4 white-text mx-auto text-center"><strong><%= number_to_human(user.community_memberships.count) %></strong> <small class="mb-0"> Memberships</small></h2>
+          <!-- Text -->
+        </div>
+      </div>
     </div>
-  </div>
-  <!-- Card -->
+    </div>
 </div>
