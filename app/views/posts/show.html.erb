@@ -1,7 +1,7 @@
 <div class="container-lg container-body py-5 px-4">
   <div class="card-group">
     <% if @post.community %>
-      <%= render partial: "communities/sidebar", locals: {user: @post.community} %>
+      <%= render partial: "communities/sidebar", locals: {community: @post.community} %>
     <% else %>
       <%= render partial: "users/user_card", locals: {user: @post.user} %>
     <% end %>
