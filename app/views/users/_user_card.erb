@@ -10,8 +10,16 @@
         <div class="mask rgba-white-slight"></div>
       </a>
     </div>
+    <div class="card-avatar mx-auto d-block">
+      <% if user.avatar.presence %>
+        <%= image_tag user.avatar.variant(resize_to_limit: [120, 120]), class: "rounded-circle" %>
+      <% else %>
+        <img class="card-img-100 d-flex" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
+      <% end %>
+    </div>
+    
     <!-- Card content -->
-    <div class="card-body card-body-cascade text-center">
+    <div class="card-body card-body-cascade text-center pt-1">
       <!-- Title -->
       <h4 class="card-title mb-0">
         <strong>@<%= user.username %></strong>
@@ -35,14 +43,14 @@
         <% end %>
       <% end %>
 
-        <% if user.facebook_url %>
-          <a class="px-2 fa-lg fb-ic"><i class="fab fa-facebook-f"></i></a>
+        <% if user.facebook_url != "" %>
+          <a class="px-2 fa-lg fb-ic" href="<%= user.facebook_url %>"><i class="fab fa-facebook-f"></i></a>
         <% end %>
-        <% if user.twitter_url %>
-          <a class="px-2 fa-lg tw-ic"><i class="fab fa-twitter"></i></a>
+        <% if user.twitter_url != "" %>
+          <a class="px-2 fa-lg tw-ic" href="<%= user.twitter_url %>"><i class="fab fa-twitter"></i></a>
         <% end %>
-        <% if user.website_url %>
-          <a class="px-2 fa-lg li-ic"><i class="fab fa-globe"></i></a>
+        <% if user.website_url != "" %>
+          <a class="px-2 fa-lg li-ic" href="<%= user.website_url %>"><i class="fab fa-globe"></i></a>
         <% end %>
       
     </div>

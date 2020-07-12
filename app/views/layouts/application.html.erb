@@ -25,11 +25,22 @@
     <% end %>
 
     <% flash.each do |name, msg| %>
-    <div class="container pt-2" style="background: #fff">
-      <%= content_tag :div, class: "note note-#{name} fade show" do %>
-        <%= msg %>
-      <% end %>
-    </div> 
+      <div class="container pt-2" style="background: #fff">
+        <% if @user && @user.errors.full_messages.any? %>
+          <% @user.errors.full_messages.each do |error_message| %>
+              <div class="note note-warning fade show mt-2">
+                <%= error_message %>
+              </div>
+          <% end %>
+        <% end %>
+        <% if @community && @community.errors.full_messages.any? %>
+          <% @community.errors.full_messages.each do |error_message| %>
+              <div class="note note-warning fade show mt-2">
+                <%= error_message %>
+              </div>
+          <% end %>
+        <% end %>
+      </div> 
     <% end %> 
 
   <%= yield %>

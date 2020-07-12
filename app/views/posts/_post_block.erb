@@ -1,15 +1,16 @@
 <% post.each do |post| %>
   <div class="media mt-4 mb-3 px-1 text-md-left border-1">
-    <% if post.user.avatar.presence %>
-      <%= image_tag post.user.avatar.variant(resize_to_limit: [80, 80]), class: "card-img-80 d-flex rounded-circle mr-3" %>
-    <% else %>
-      <img class="card-img-100 d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
-    <% end %>
     <div class="media-body ml-2 mt-1" style="width: 100%;">
-      <h5 class="font-weight-bold mt-0 mb-0 text-muted">
-        <%= link_to post.user.name, user_path(post.user) %><small class="text-muted align-middle pl-2">@<%= link_to post.user.username, user_path(post.user) %></small>
-      </h5>
-      <p class="mt-2">
+    <% if post.user.avatar.presence %>
+      <%= image_tag post.user.avatar.variant(resize_to_limit: [60, 60]), class: "card-img-60 d-flex rounded-circle mr-2 float-left" %>
+    <% else %>
+      <img class="card-img-40 d-flex mr-2 float-left" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image" height="40" width="40">
+    <% end %>
+      <h5 class="font-weight-bold mt-0 mb-0 text-muted float-left">
+        <%= link_to post.user.name, user_path(post.user) %>
+      </h5><br>
+      <small class="text-muted d-block">@<%= link_to post.user.username, user_path(post.user) %></small>
+      <p class="pt-3">
         <% if post.body.length > 600 %>
           <%= sanitize(post.parsed_body.truncate(600)) %>
           <%= link_to "Read full post", user_post_path(post.user, post) %>
@@ -29,7 +30,7 @@
       </p>
       <div class="row" style="background: #f9f9f9; padding-top: 5px; padding-bottom: 5px; margin-left: 1px; margin-right: 1px;">
         <small class="blue-grey-text pl-3">
-          Posted <%= post.created_at.strftime("%B %e at %H:%M") %>
+          <%= post.created_at.strftime("%B %e at %H:%M") %>
           <% if post.parent_id %>
             as reply to <%= link_to post.parent.user.username, user_post_path(post.parent.user, post.parent) %>
           <% elsif post.community %>

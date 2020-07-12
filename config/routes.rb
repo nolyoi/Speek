@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   # Dashboard
   get '/users/dashboard' => 'users#dashboard'
 
-  resources :posts, only: [:create]
+  resources :posts, only: [:index, :create]
 
   namespace :private do 
     resources :conversations

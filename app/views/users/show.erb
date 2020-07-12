@@ -19,15 +19,13 @@
 
           <ul class="list-unstyled list-inline mb-0">
             <li class="list-inline-item"><a href="" class="mr-3"><i class="fas fa-envelope mr-1"></i>Send message</a></li>
-            <% if current_user %>
-              <% if is_following?(@user) %>
+              <% if current_user && is_following?(@user) %>
                 <li class="list-inline-item">
                   <%= link_to user_unfollow_path(@user) do %>
                     <i class="fas fa-at mr-1"></i>Unfollow
                   <% end %>
                 </li>
-              <% elsif current_user.id == @user.id %>
-              
+              <% elsif current_user && current_user.id == @user.id %>
               <% else %>
                 <li class="list-inline-item">
                   <%= link_to user_follow_path(@user) do %>
@@ -35,7 +33,6 @@
                   <% end %>
                 </li>
               <% end %>
-            <% end %>
           </ul>
         </div>
         <div class="tab-content" id="myTabContent">

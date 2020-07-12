@@ -80,5 +80,13 @@
 
   color: #232323;
 }
-
-
+.card-avatar {
+  width: 120px;
+  margin-top: -60px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  z-index: 9;
+}
