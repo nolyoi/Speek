@@ -3,7 +3,7 @@
     <%= render partial: "users/user_card", locals: {user: current_user} %>
     <div class="col-xl-8">
       <section class="my-4">
-        <h2>Welcome back, <%= current_user.name.split(' ')[0] %>! </h2>
+        <h2>Welcome back, <%= current_user.first_name %>! </h2>
         <h4>Here's what your friends are up to...</h4>
         <%= render partial: "posts/post_block", locals: {post: dashboard_activity_posts(current_user)} %>
       </section>
