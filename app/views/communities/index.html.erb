@@ -16,7 +16,7 @@
               </thead>
 
               <tbody>
-                <% current_user.communities.each do |community| %>
+                <% current_user.memberships.each do |community| %>
                   <tr>
                     <td><%= link_to community.name, community_path(community) %></td>
                     <td><%= community.description %></td>

@@ -63,10 +63,10 @@ class CommunitiesController < ApplicationController
   end
 
   def leave
-    membership = current_user.community_memberships.find_by(community_id: @community.ids)
+    membership = current_user.community_memberships.find_by(community_id: @community.id)
     if membership.destroy
       flash[:success] = "You have successfully left #{@community.name}!"
-      redirect_to user_path(current_user)
+      redirect_to community_path(@community)
     else
       flash[:danger] = "Sorry, something went wrong. Please try again."
       redirect_to community_path(@community)
@@ -75,6 +75,7 @@ class CommunitiesController < ApplicationController
 
   def permissions
     @memberships = CommunityMembership.where(community_id: @community.id)
+    authorize! [:edit, :update], @memberships
   end
 
   private

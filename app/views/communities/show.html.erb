@@ -1,4 +1,9 @@
 <div class="container-lg container-body py-5 px-4">
+  <% flash.each do |name, msg| %>
+  <%= content_tag :div, class: "note note-#{name} fade show mb-4" do %>
+    <%= msg %>
+  <% end %>  
+<% end %>
   <div class="card-group">
     <%= render partial: "communities/sidebar", locals: {community: @community} %>
       <div class="col-xl-8">
