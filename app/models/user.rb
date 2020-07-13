@@ -25,12 +25,17 @@ class User < ApplicationRecord
   has_many :messages, class_name: 'Private::Message'
 
   has_one_attached :avatar
+  has_one_attached :header_image
 
   validates :username, uniqueness: true, presence: true, length: { minimum: 3, maximum: 14 }, format: { with: /\A[\w-]+\z/, 
                                                                                                         message: "Invalid username. Please choose another!" }
   validates :email, uniqueness: true, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { in: 8..50 }
   validates :bio, length: { maximum: 200 }
+
+  def first_name
+    self.name.split(' ')[0]
+  end
 
   private
 
@@ -48,9 +53,5 @@ class User < ApplicationRecord
          user.name = auth['info']['name'] || ""
       end
     end
-  end
-
-  def self.first_name
-    self.name.split(' ')[0]
   end
 end

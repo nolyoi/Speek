@@ -4,8 +4,11 @@
   <div class="card card-cascade wider reverse">
     <!-- Card image -->
     <div class="view view-cascade overlay">
-      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg"
-          alt="Card image cap">
+      <% if user.header_image.presence %>
+        <%= image_tag user.header_image, class: "card-img-top header-image" %>
+      <% else %>
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg" alt="Card image cap">
+      <% end %>
       <a href="#!">
         <div class="mask rgba-white-slight"></div>
       </a>

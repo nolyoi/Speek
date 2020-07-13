@@ -2,7 +2,7 @@
 
 class CommunitiesController < ApplicationController
   include CommunitiesHelper
-  before_action :set_community, only: [:show, :edit, :update, :destroy, :join, :leave]
+  before_action :set_community, only: [:show, :edit, :update, :destroy, :join, :leave, :permissions]
 
   # GET /communities
   def index
@@ -73,10 +73,14 @@ class CommunitiesController < ApplicationController
     end
   end
 
+  def permissions
+    @memberships = CommunityMembership.where(community_id: @community.id)
+  end
+
   private
 
   # Only allow a list of trusted parameters through.
   def community_params
-    params.require(:community).permit(:name, :description, :post_id, :admin_id)
+    params.require(:community).permit(:name, :description, :post_id, :admin_id, :avatar, :header_image)
   end
 end

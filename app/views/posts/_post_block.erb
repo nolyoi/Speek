@@ -10,13 +10,14 @@
         <%= link_to post.user.name, user_path(post.user) %>
       </h5><br>
       <small class="text-muted d-block mb-3">@<%= link_to post.user.username, user_path(post.user) %></small>
-
+        <p style="ml-3">
         <% if post.body.length > 600 %>
           <%= sanitize(post.parsed_body.truncate(600), tags: %w(h3 h2 p)) %>
           <%= link_to "Read full post", user_post_path(post.user, post) %>
         <% else %>
           <%= raw(post.parsed_body) %>
         <% end %>
+        </p>
         <% if post.parent_id %>
           <div class="media mt-4 mb-2 px-2 pt-2 text-md-left border-1" style="background: #f9f9f9">
             <div class="media-body">
@@ -27,6 +28,7 @@
             </div>
           </div>
         <% end %>
+
       <div class="row" style="background: #f9f9f9; padding-top: 5px; padding-bottom: 5px; margin-left: 1px; margin-right: 1px;">
         <small class="blue-grey-text pl-3">
           <%= post.created_at.strftime("%B %e at %H:%M") %>

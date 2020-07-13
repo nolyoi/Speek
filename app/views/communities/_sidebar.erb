@@ -2,11 +2,21 @@
   <div class="card card-cascade wider reverse">
     <!-- Card image -->
     <div class="view view-cascade overlay">
-      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg"
-          alt="Card image cap">
+      <% if community.header_image.presence %>
+        <%= image_tag community.header_image, class: "card-img-top header-image" %>
+      <% else %>
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg" alt="Card image cap">
+      <% end %>
       <a href="#!">
         <div class="mask rgba-white-slight"></div>
       </a>
+    </div>
+    <div class="card-avatar mx-auto d-block">
+      <% if community.avatar.presence %>
+        <%= image_tag community.avatar.variant(resize_to_limit: [120, 120]), class: "rounded-circle" %>
+      <% else %>
+        <img class="card-img-100 d-flex" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(8).jpg" alt="Generic placeholder image">
+      <% end %>
     </div>
     <!-- Card content -->
     <div class="card-body card-body-cascade text-center">
@@ -34,6 +44,7 @@
           <br>
       
         <% if is_community_admin?(current_user, community) %>
+          <%= link_to 'User Permissions', community_member_permissions_path(community) %> |
           <%= link_to 'Edit', edit_community_path(community) %> |
           <%= link_to 'Back', communities_path %>
         <% end %>

@@ -12,6 +12,13 @@
         <%= label_tag :avatar, "Avatar", class: "mt-4 mx-auto" %>
         <%= f.file_field :avatar, class: "form-control-file mx-auto mb-4" %>
       </div>
+      <% if @user.header_image.presence %>
+        <%= image_tag @user.header_image.variant(resize_to_limit: [200, 200]), class: "mb-3 mx-auto" %>
+      <% end %>
+        <div class="row mx-auto">
+          <%= label_tag :header_image, "Header Image", class: "mt-4 mx-auto" %>
+          <%= f.file_field :header_image, class: "form-control-file mx-auto mb-4" %>
+        </div>
     </div>
   
       

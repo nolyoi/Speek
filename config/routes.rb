@@ -37,7 +37,9 @@ Rails.application.routes.draw do
   resources :communities do
     get '/join' => 'communities#join'
     get '/leave' => 'communities#leave'
+    get '/member-permissions' => 'communities#permissions'
     resources :posts, except: %i[edit update]
+    resources :memberships, only: [:edit, :update]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

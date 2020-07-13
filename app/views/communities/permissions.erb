@@ -1,0 +1,60 @@
+<div class="container-lg container-body py-5 px-4">
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, class: "note note-#{name} fade show mb-4" do %>
+    <%= msg %>
+  <% end %>  
+<% end %>
+  <div class="card-group">
+    <%= render partial: "communities/sidebar", locals: {community: @community} %>
+      <div class="col-xl-8">
+        <section class="my-4">
+          <% if current_user %>
+            <h2>Users</h2>
+            <table class="table">
+              <thead class="black white-text">
+                <tr>
+                  <th>Username</th>
+                  <th>Name</th>
+                  <th>E-mail</th>
+                  <th>Role</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @memberships.each do |membership| %>
+                  <tr>
+                    <td><%= link_to membership.user.username, user_path(membership.user) %></td>
+                    <td><%= link_to membership.user.name, user_path(membership.user) %></td>
+                    <td><%= membership.user.email %></td>
+                    <td>
+                      <%= form_with url: community_membership_path(id: membership.id), method: "patch" do |f| %>
+                        <select name="community_membership[role]">
+                            <option value="<%= community_role(membership.user, @community).downcase %>"><%= community_role(membership.user, @community) %></option>
+                            <option value="member">Member</option>
+                            <option value="moderator">Moderator</option>
+                            <option value="admin">Admin</option>
+                        </select><br>
+                        <%= f.submit "Change", :class => "btn btn-primary btn-sm" %>
+                      <% end %>
+                    </td>
+                    <td class="text-center">
+                      <%= link_to 'View Profile', membership.user %> 
+                      <% if is_admin?(current_user) %>
+                        | <%= link_to 'Edit', edit_user_path(membership.user) %> 
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <div class="row float-right">
+              
+            </div>
+          <% end %>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
