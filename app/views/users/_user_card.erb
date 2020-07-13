@@ -45,15 +45,15 @@
           <p><%= link_to "Follow", user_follow_path(user), class: "btn btn-primary btn-sm btn-block" %></p>
         <% end %>
       <% end %>
-
+        
         <% if user.facebook_url != "" %>
-          <a class="px-2 fa-lg fb-ic" href="<%= user.facebook_url %>"><i class="fab fa-facebook-f"></i></a>
+          <a class="btn btn-info btn-rounded z-depth-0" href="<%= user.facebook_url %>"><i class="fab fa-facebook-f"></i></a>
         <% end %>
         <% if user.twitter_url != "" %>
-          <a class="px-2 fa-lg tw-ic" href="<%= user.twitter_url %>"><i class="fab fa-twitter"></i></a>
+          <a class="btn btn-info btn-sm btn-rounded z-depth-0" href="<%= user.twitter_url %>"><i class="fab fa-twitter"></i> Twitter</a>
         <% end %>
         <% if user.website_url != "" %>
-          <a class="px-2 fa-lg li-ic" href="<%= user.website_url %>"><i class="fab fa-globe"></i></a>
+          <a class="btn btn-info btn-sm btn-rounded z-depth-0" href="<%= user.website_url %>"><i class="fas fa-globe-americas"></i> Website</a>
         <% end %>
       
     </div>
