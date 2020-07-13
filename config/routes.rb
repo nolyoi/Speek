@@ -1,13 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'admin/dashboard'
-  resources :conversations
-  resources :messages
-  namespace :private do
-    end
-  notify_to :users
-
   root 'static#index'
   get '/about' => 'static#about'
   get '/contact' => 'static#contact'
@@ -22,9 +15,9 @@ Rails.application.routes.draw do
   # Dashboard
   get '/users/dashboard' => 'users#dashboard'
 
-  resources :posts, only: [:index, :create]
+  resources :posts, only: %i[index create]
 
-  namespace :private do 
+  namespace :private do
     resources :conversations
   end
 
@@ -39,8 +32,6 @@ Rails.application.routes.draw do
     get '/leave' => 'communities#leave'
     get '/member-permissions' => 'communities#permissions'
     resources :posts, except: %i[edit update]
-    resources :memberships, only: [:edit, :update]
+    resources :memberships, only: %i[edit update]
   end
-
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
