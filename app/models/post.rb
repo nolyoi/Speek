@@ -2,6 +2,8 @@
 
 class Post < ApplicationRecord
   self.per_page = 10
+  include PgSearch::Model
+  multisearchable against: [:body]
 
   belongs_to :user
   belongs_to :community, optional: true

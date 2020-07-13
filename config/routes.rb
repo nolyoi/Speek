@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   # Dashboard
   get '/users/dashboard' => 'users#dashboard'
 
+  # Search
+  get '/search' => 'search#index', as: 'search'
+  get '/search?q=params[:query]' => 'search#results'
+
   resources :posts, only: %i[index create]
 
   namespace :private do

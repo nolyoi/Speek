@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Community < ApplicationRecord
+  include PgSearch::Model
+  multisearchable against: [:name, :description]
+
   belongs_to :user, foreign_key: 'admin_id'
 
   has_many :posts, foreign_key: 'community_id'
