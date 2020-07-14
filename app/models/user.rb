@@ -3,7 +3,6 @@
 class User < ApplicationRecord
   has_secure_password
   acts_as_target
-
   enum role: { user: 0, moderator: 1, admin: 2 }
 
   has_many :posts, dependent: :destroy
@@ -27,11 +26,11 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_one_attached :header_image
 
-  validates :username, uniqueness: true, presence: true, length: { minimum: 3, maximum: 14 }, format: { with: /\A[\w-]+\z/, 
+  validates :username, uniqueness: true, presence: true, length: { minimum: 3, maximum: 14 }, format: { with: /\A[\w-]+\z/,
                                                                                                         message: "Invalid username. Please choose another!" }
   validates :email, uniqueness: true, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { in: 8..50 }
-  validates :bio, length: { maximum: 200 }
+  validates :bio, length: { maximum: 200, too_long: "Bio cannot exceed %{count} characters."}
 
   def first_name
     self.name.split(' ')[0]
