@@ -15,14 +15,18 @@ class Post < ApplicationRecord
 
   has_many_attached :images
 
-  acts_as_notifiable :users,
-                     targets: :custom_notification_users,
-                     group: :article,
-                     notifier: :user,
-                     email_allowed: :custom_notification_email_to_users_allowed?,
-                     notifiable_path: :custom_notifiable_path
-
   before_save :convert_to_markdown
+
+  scope :today, -> { where('created_at >= ?', Time.now - 1.day) }
+
+  def self.most_commented
+    mc = Post.where('parent_id > 0').group("parent_id").count
+    posts = []
+    mc.each do |post, cc|
+      posts << Post.find(post)
+    end
+    posts
+  end
 
   private
 

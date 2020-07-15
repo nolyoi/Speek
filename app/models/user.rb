@@ -2,7 +2,6 @@
 
 class User < ApplicationRecord
   has_secure_password
-  acts_as_target
   enum role: { user: 0, moderator: 1, admin: 2 }
 
   has_many :posts, dependent: :destroy
